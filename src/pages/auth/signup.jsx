@@ -91,7 +91,7 @@ const Signup = () => {
               </a>
               <a href="#" className="text-[#ffffff]/60 hover:text-[#065535]">
                 <FaTwitter />
-              </a>http://localhost:5175/signup
+              </a>
               <a href="#" className="text-[#ffffff]/60 hover:text-[#065535]">
                 <FaLinkedinIn />
               </a>
