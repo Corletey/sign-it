@@ -64,7 +64,7 @@ const Login = () => {
               {errors.password && <span className="text-red-400 text-sm mt-1">{errors.password.message}</span>}
             </div>
             <div className="flex items-center justify-end">
-              <a href="/forgot" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</a>
+              <a href="/forgotpassword" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</a>
             </div>
             <button
               type="submit"

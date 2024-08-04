@@ -11,6 +11,10 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
+    path: "forgotpassword",
+    element: <ForgotPassword/>,
+  },
+  {
     element: <AuthLayout />,
     children: [
       {
@@ -20,10 +24,6 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
-      },
-      {
-        path: "forgot",
-        element: <ForgotPassword/>,
       },
     ],
   },
