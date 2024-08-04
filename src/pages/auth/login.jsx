@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import LoginImg from '../../assets/images/hands.jpeg';
@@ -64,7 +64,7 @@ const Login = () => {
               {errors.password && <span className="text-red-400 text-sm mt-1">{errors.password.message}</span>}
             </div>
             <div className="flex items-center justify-end">
-              <a href="/forgotpassword" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</a>
+              <Link to="/forgot" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</Link>
             </div>
             <button
               type="submit"
