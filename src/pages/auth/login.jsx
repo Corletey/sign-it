@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import LoginImg from '../../assets/images/hands.jpeg';
-import { InfinitySpin } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -43,9 +43,9 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 {...register("email", { required: "Required" })}
-                className={`w-full px-4 py-2 pl-10 bg-white/10 border ${errors.email ? 'border-red-500' : 'border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50`}
+                className={`w-full px-4 py-2 pl-10 bg-white/10 border ${errors.email ? 'border-red-400' : 'border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50`}
               />
-              {errors.email && <span className="text-red-400 text-xs mt-1">{errors.email.message}</span>}
+              {errors.email && <span className="text-red-400 text-sm mt-1">{errors.email.message}</span>}
             </div>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
@@ -53,7 +53,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 {...register("password", { required: "Required" })}
-                className={`w-full px-4 py-2 pl-10 bg-white/10 border ${errors.password ? 'border-red-500' : 'border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50`}
+                className={`w-full px-4 py-2 pl-10 bg-white/10 border ${errors.password ? 'border-red-400' : 'border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50`}
               />
               <div
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-white/50 hover:text-white"
@@ -61,16 +61,16 @@ const Login = () => {
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </div>
-              {errors.password && <span className="text-red-400 text-xs mt-1">{errors.password.message}</span>}
+              {errors.password && <span className="text-red-400 text-sm mt-1">{errors.password.message}</span>}
             </div>
             <div className="flex items-center justify-end">
-              <a href="#" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</a>
+              <a href="/forgot" className="text-sm text-white hover:text-white/80 transition-colors duration-200">Forgot password?</a>
             </div>
             <button
               type="submit"
               className="w-full py-2 bg-white text-[#065535] rounded-lg hover:bg-white/90 transition-colors duration-300 font-semibold flex justify-center items-center"
             >
-              {isSubmitting ? <InfinitySpin width={20} color="#065535" /> : "Log In"}
+              {isSubmitting ? <ThreeDots height={24} width={24} color="#065535" /> : "Log In"}
             </button>
           </form>
           <p className="text-sm text-center text-white/80 mt-4">
