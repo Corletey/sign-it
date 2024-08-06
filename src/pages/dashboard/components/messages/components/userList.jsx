@@ -1,4 +1,4 @@
-// src/pages/dashboard/components/messages/components/userList.jsx
+// src/pages/dashboard/components/messages/components/UserList.jsx
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 
@@ -10,21 +10,21 @@ const UserList = ({ users, setCurrentChat, currentChat }) => {
   );
 
   return (
-    <div className="w-1/4 bg-white border-r">
-      <div className="p-4">
+    <div className="flex flex-col h-full bg-white">
+      <div className="p-4 bg-[#065535] text-white">
         <h2 className="text-xl font-bold mb-4">Messages</h2>
         <div className="relative">
           <input
             type="text"
             placeholder="Search users..."
-            className="w-full p-2 pl-8 border rounded-md"
+            className="w-full p-2 pl-8 border rounded-md text-gray-800"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Search className="absolute left-2 top-2.5 text-gray-400" size={20} />
         </div>
       </div>
-      <div className="overflow-y-auto h-[calc(100vh-120px)]">
+      <div className="flex-1 overflow-y-auto">
         {filteredUsers.map(user => (
           <div
             key={user.id}

@@ -1,8 +1,9 @@
-//src/pages/dashboard/components/messages/components/messageApp.jsx
+// src/pages/dashboard/components/messages/components/MessageApp.jsx
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import UserList from './userList';
 import ChatWindow from './chatWindow';
+import MobileMessageApp from './mobileMessageApp';
 
 const socket = io('http://my-backend-url');
 
@@ -10,19 +11,23 @@ const MessageApp = () => {
   const [users, setUsers] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    // Listen for updated user list
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     socket.on('users', (updatedUsers) => {
       setUsers(updatedUsers);
     });
 
-    // Listen for new messages
     socket.on('new_message', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
-    // Clean up on unmount
     return () => {
       socket.off('users');
       socket.off('new_message');
@@ -32,6 +37,18 @@ const MessageApp = () => {
   const sendMessage = (message) => {
     socket.emit('send_message', { recipient: currentChat, content: message });
   };
+
+  if (isMobile) {
+    return (
+      <MobileMessageApp
+        users={users}
+        currentChat={currentChat}
+        setCurrentChat={setCurrentChat}
+        messages={messages}
+        sendMessage={sendMessage}
+      />
+    );
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">

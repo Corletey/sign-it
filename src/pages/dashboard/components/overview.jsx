@@ -11,7 +11,7 @@ const Overview = () => {
   const recentCourses = [
     { title: 'Basic Sign Language', instructor: 'John Doe', lessons: 6, image: 'path_to_image1.jpg' },
     { title: 'Intermediate Signing', instructor: 'Jane Smith', lessons: 5, image: 'path_to_image2.jpg' },
-    { title: 'Advanced ASL', instructor: 'Mike Johnson', lessons: 4, image: 'path_to_image3.jpg' },
+    { title: 'Advanced GSL', instructor: 'Mike Johnson', lessons: 4, image: 'path_to_image3.jpg' },
   ];
 
   return (

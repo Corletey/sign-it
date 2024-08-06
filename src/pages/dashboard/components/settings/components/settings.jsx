@@ -1,6 +1,5 @@
-// src/pages/dashboard/components/settings/components/settings.jsx
 import React, { useState } from 'react';
-import { User, Lock, Share2, Link, Bell } from 'lucide-react';
+import { User, Lock, Share2 } from 'lucide-react';
 import Profile from './profile';
 import ChangePassword from './password';
 import SocialProfiles from './socials';
@@ -21,35 +20,37 @@ const Settings = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold text-[#065535] mb-4">Settings</h1>
-      <p className="text-gray-600 mb-6">You have full control to manage your own account settings</p>
+      <h1 className="text-3xl font-bold text-[#065535] mb-4">Settings</h1>
+      <p className="text-gray-700 mb-6 text-lg">Manage your account settings with ease.</p>
 
-      <div className="flex mb-6 border-b">
+      <div className="flex flex-col md:flex-row mb-6 border-b border-gray-200">
         {tabs.map((tab) => (
           <button
             key={tab.name}
             onClick={() => setActiveTab(tab.name)}
-            className={`flex items-center px-4 py-2 mr-4 ${
+            className={`flex items-center px-4 py-3 mb-2 md:mb-0 md:mr-4 rounded-lg transition-colors duration-300 ease-in-out ${
               activeTab === tab.name
-                ? 'border-b-2 border-[#065535] text-[#065535]'
-                : 'text-gray-500'
+                ? 'bg-[#E0F2F1] text-[#065535] border-b-2 border-[#065535]'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
             aria-label={`Go to ${tab.name} tab`}
           >
-            <tab.icon className="w-5 h-5 mr-2" />
-            {tab.name}
+            <tab.icon className="w-6 h-6 mr-3" />
+            <span className="text-sm md:text-base font-medium">{tab.name}</span>
           </button>
         ))}
       </div>
 
-      {activeTab === 'Edit Profile' && <Profile onSubmitProfile={onSubmitProfile} />}
-      {activeTab === 'Change Password' && <ChangePassword />}
-      {activeTab === 'Social Profiles' && <SocialProfiles />}
-      {activeTab !== 'Edit Profile' && activeTab !== 'Change Password' && activeTab !== 'Social Profiles' && (
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <p>Content for {activeTab} goes here.</p>
-        </div>
-      )}
+      <div className="bg-white shadow-md rounded-lg p-6">
+        {activeTab === 'Edit Profile' && <Profile onSubmitProfile={onSubmitProfile} />}
+        {activeTab === 'Change Password' && <ChangePassword />}
+        {activeTab === 'Social Profiles' && <SocialProfiles />}
+        {activeTab !== 'Edit Profile' && activeTab !== 'Change Password' && activeTab !== 'Social Profiles' && (
+          <div>
+            <p>Content for {activeTab} goes here.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

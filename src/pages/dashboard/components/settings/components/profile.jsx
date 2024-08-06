@@ -62,14 +62,14 @@ const Profile = ({ onSubmitProfile }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg p-6 max-w-4xl mx-auto">
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Your avatar</h2>
-        <div className="flex items-center">
+        <div className="flex flex-col sm:flex-row items-center">
           <img
             src={avatarPreview || "https://via.placeholder.com/100"}
             alt="Avatar"
-            className="w-24 h-24 rounded-full mr-4"
+            className="w-24 h-24 rounded-full mb-4 sm:mb-0 sm:mr-4"
           />
           <div>
             <p className="text-sm text-gray-600 mb-2">PNG or JPG no bigger than 800px width and height</p>
