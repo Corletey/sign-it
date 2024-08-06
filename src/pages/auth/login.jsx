@@ -68,7 +68,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-white text-[#065535] rounded-lg hover:bg-white/90 transition-colors duration-300 font-semibold flex justify-center items-center"
+              className="w-full py-2 bg-white text-[#065535] rounded-lg hover:bg-white/90 transition-colors duration-300 font-semibold flex justify-center items-center" onClick={() => navigate('/dashboard')}
             >
               {isSubmitting ? <ThreeDots height={24} width={24} color="#065535" /> : "Log In"}
             </button>
