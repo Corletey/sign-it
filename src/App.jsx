@@ -2,7 +2,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AuthLayout from "./layouts/authLayout";
 import Login from "./pages/auth/login";
-import SignUp from "./pages/auth/signup";
 import Landing from './pages/landing/index';
 import ForgotPassword from './pages/auth/forgotPass';
 import HeroSection from './pages/dashboard/components/hero';
@@ -12,6 +11,7 @@ import Profile from './pages/dashboard/components/profile';
 import EnrolledCourses from './pages/dashboard/components/enrolledCourses';
 import MessageApp from './pages/dashboard/components/messages/components/messageApp';
 import Settings from './pages/dashboard/components/settings/components/settings';
+import SignUp from './pages/auth/signup';
 
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <DashboardLayout />,
     children: [
       { path: "", element: <Overview /> },
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "forgot",
+        path: "forgot-password",
         element: <ForgotPassword />,
       },
     ],
@@ -56,3 +56,4 @@ function App() {
 }
 
 export default App;
+

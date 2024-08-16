@@ -1,94 +1,65 @@
-// src/pages/dashboard/components/settings/components/Profile.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Circles } from 'react-loader-spinner'; // Import the loader
+import { Circles } from 'react-loader-spinner';
+import { apiUpdateUserProfile, apiCreateUserProfile, apiGetUserProfile } from '../../../../../services/profile';
+import { toast } from "react-toastify";
 
-const Profile = ({ onSubmitProfile }) => {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-  const [avatar, setAvatar] = useState(null);
-  const [avatarPreview, setAvatarPreview] = useState(null);
-  const [isUsernameLoading, setIsUsernameLoading] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState(false);
-  const [usernameNotAvailable, setUsernameNotAvailable] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
+const Profile = ({ Profile }) => {
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const [profileData, setProfileData] = useState({});
 
-    // Preview the image
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+  const fetchProfileData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await apiGetUserProfile();
+      setProfileData(res.data?.profile);
+    } catch (error) {
+      console.error("Error fetching profile data: ", error.response || error);
+      toast.error("An error occurred while fetching profile data");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const checkUsernameAvailability = async (username) => {
-    setIsUsernameLoading(true);
-    // Placeholder for API call
-    setTimeout(() => {
-      // Simulating username check response
-      const isAvailable = username.length % 2 === 0; // Example condition
-      setUsernameAvailable(isAvailable);
-      setUsernameNotAvailable(!isAvailable);
-      setIsUsernameLoading(false);
-    }, 1000);
-  };
+  useEffect(() => {
+    if (Profile) {
+      setValue('userName', res.data?.profile?.username);
+      setValue('firstName', res.data?.profile?.firstName);
+      setValue('lastName', res.data?.profile?.lastName); ;
+      setValue('email', res.data?.profile?.email);
+    }
+  }, [Profile, setValue, profileData]);
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append('firstName', data.firstName);
-    formData.append('lastName', data.lastName);
-    formData.append('userName', data.userName);
-    formData.append('phoneNumber', data.phoneNumber);
-    formData.append('designation', data.designation);
-    formData.append('bio', data.bio);
-
-    if (avatar) {
-      formData.append('avatar', avatar);
-    }
-
-    console.log('Submitting profile with data:', data);
-    console.log('FormData contents:', formData);
-
+    setIsLoading(true);
     try {
-      await onSubmitProfile(formData);
-      console.log('Profile updated successfully');
+      const response = await apiUpdateUserProfile(data);
+      console.log('Profile updated', response.data);
+      toast.success(response.data.message);
     } catch (error) {
-      console.error('Error submitting profile data', error);
+      console.error('Error updating profile', error);
+      toast.error("An error occurred while updating profile");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg p-6 max-w-4xl mx-auto">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Your avatar</h2>
-        <div className="flex flex-col sm:flex-row items-center">
-          <img
-            src={avatarPreview || "https://via.placeholder.com/100"}
-            alt="Avatar"
-            className="w-24 h-24 rounded-full mb-4 sm:mb-0 sm:mr-4"
-          />
-          <div>
-            <p className="text-sm text-gray-600 mb-2">PNG or JPG no bigger than 800px width and height</p>
-            <input
-              type="file"
-              id="avatarUpload"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <label htmlFor="avatarUpload" className="bg-[#065535] text-white px-4 py-2 rounded-md cursor-pointer hover:bg-[#0e8c5f] transition-colors duration-200">
-              Upload new image
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded-lg shadow-md">
+      <div className="grid grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+          <label className="block text-sm font-medium text-gray-700">Username</label>
+          <input
+            type="text"
+            readOnly
+            {...register('userName')}
+            className="w-full p-2 border rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">First Name</label>
           <input
             type="text"
             {...register('firstName', { required: 'Required' })}
@@ -97,7 +68,7 @@ const Profile = ({ onSubmitProfile }) => {
           {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+          <label className="block text-sm font-medium text-gray-700">Last Name</label>
           <input
             type="text"
             {...register('lastName', { required: 'Required' })}
@@ -106,49 +77,111 @@ const Profile = ({ onSubmitProfile }) => {
           {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">User Name</label>
+          <label className="block text-sm font-medium text-gray-700">Email</label>
           <input
-            type="text"
-            {...register('userName', { required: 'Required' })}
-            onBlur={(e) => checkUsernameAvailability(e.target.value)}
+            type="email"
+            {...register('email', { required: 'Required' })}
             className="w-full p-2 border rounded-md"
           />
-          {errors.userName && <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>}
-          <div className='flex items-center gap-x-2'>
-            {isUsernameLoading && <Circles height={20} width={20} color="#065535" />}
-            {usernameAvailable && <p className='text-green-500'>Username is available!</p>}
-            {usernameNotAvailable && <p className='text-red-500'>Username is already taken!</p>}
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+
           </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Age</label>
+          <input
+            type="number"
+            {...register('age', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+          <label className="block text-sm font-medium text-gray-700">Sex</label>
+          <select
+            {...register('sex', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Select Sex</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          {errors.sex && <p className="text-red-500 text-sm mt-1">{errors.sex.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
           <input
-            type="tel"
-            {...register('phoneNumber', { required: 'Required' })}
+            type="date"
+            {...register('dateOfBirth', { required: 'Required' })}
             className="w-full p-2 border rounded-md"
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
+          {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Contact</label>
+          <input
+            type="text"
+            {...register('contact', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.contact && <p className="text-red-500 text-sm mt-1">{errors.contact.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Address</label>
+          <input
+            type="text"
+            {...register('address', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">About</label>
+          <textarea
+            {...register('about', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.about && <p className="text-red-500 text-sm mt-1">{errors.about.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Skill Level</label>
+          <input
+            type="text"
+            {...register('skillLevel', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.skillLevel && <p className="text-red-500 text-sm mt-1">{errors.skillLevel.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Learning Goals</label>
+          <input
+            type="text"
+            {...register('learningGoals', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.learningGoals && <p className="text-red-500 text-sm mt-1">{errors.learningGoals.message}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Interests</label>
+          <input
+            type="text"
+            {...register('interests', { required: 'Required' })}
+            className="w-full p-2 border rounded-md"
+          />
+          {errors.interests && <p className="text-red-500 text-sm mt-1">{errors.interests.message}</p>}
         </div>
       </div>
 
-      <div className="mt-6">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
-        <textarea
-          {...register('bio', { required: 'Required' })}
-          rows="4"
-          className="w-full p-2 border rounded-md"
-        ></textarea>
-        {errors.bio && <p className="text-red-500 text-sm mt-1">{errors.bio.message}</p>}
+      <div className="flex justify-end mt-6">
+        <button
+          type="submit"
+          className="bg-[#065535] text-white px-6 py-2 rounded-md hover:bg-[#0e8c5f] transition-colors duration-200"
+        >
+          {isLoading ? <Circles height={24} width={24} color="#fff" /> : 'Save Profile'}
+        </button>
       </div>
-
-      <button
-        type="submit"
-        className="mt-6 bg-[#065535] text-white px-6 py-2 rounded-md hover:bg-[#0e8c5f] transition-colors duration-200"
-      >
-        Update Profile
-      </button>
     </form>
   );
 };
 
 export default Profile;
+

@@ -89,10 +89,10 @@ const EnrolledCourses = () => {
                     <span>{course.reviews} Reviews</span>
                   </div>
                   <div className="mt-4">
-                    <button className="w-full bg-[#065535] text-white py-2 px-4 rounded-full flex items-center justify-center hover:bg-[#0e8c5f] transition duration-300">
+                    <Link to="/dashboard/enrolled-courses/courses/module-1" className="w-full bg-[#065535] text-white py-2 px-4 rounded-full flex items-center justify-center hover:bg-[#0e8c5f] transition duration-300">
                       <Play className="w-4 h-4 mr-2" />
                       Start Learning
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

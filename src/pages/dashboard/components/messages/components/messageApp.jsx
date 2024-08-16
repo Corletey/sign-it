@@ -5,7 +5,7 @@ import UserList from './userList';
 import ChatWindow from './chatWindow';
 import MobileMessageApp from './mobileMessageApp';
 
-const socket = io('http://my-backend-url');
+// const socket = io('http://my-backend-url');
 
 const MessageApp = () => {
   const [users, setUsers] = useState([]);

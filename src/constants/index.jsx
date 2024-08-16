@@ -1,5 +1,5 @@
 // src/constants/index.jsx
-import { Home, User, Mail, Shield, Star, BookOpen, ClipboardCheck, MessageCircle } from 'lucide-react';
+import { Home, User, Mail, Shield, Star, BookOpen, ClipboardCheck, MessageCircle, Book } from 'lucide-react';
 
 const K = {
   NAVLINKS: [
@@ -18,6 +18,12 @@ const K = {
 
   SETTINGS: [
     { name: 'Settings', path: '/dashboard/settings', icon: Shield },
+  ],
+
+  COURSE_MODULES: [
+    { name: 'Module 1', path: '/dashboard/enrolled-courses/courses/module-1', icon: Book },
+    { name: 'Module 2', path: '/dashboard/enrolled-courses/courses/module-2', icon: Book },
+    { name: 'Module 3', path: '/dashboard/enrolled-courses/courses/module-3', icon: Book },
   ],
 };
 
