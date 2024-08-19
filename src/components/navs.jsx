@@ -32,7 +32,7 @@ const Navigation = () => {
               </button>
               <div className="flex-shrink-0 flex items-center ml-2 lg:ml-0">
                 <img className="h-8 w-auto" src="/path-to-your-logo.png" alt="Sign It Logo" />
-                <span className="ml-2 text-xl font-bold text-[#065535]">Sign It</span>
+                <span className="ml-2 text-xl font-bold text-[#065535]">Visual Voices</span>
               </div>
             </div>
             <div className="hidden lg:flex lg:items-center lg:space-x-4">
