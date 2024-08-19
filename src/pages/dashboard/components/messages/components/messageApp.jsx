@@ -1,6 +1,6 @@
 // src/pages/dashboard/components/messages/components/MessageApp.jsx
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import UserList from './userList';
 import ChatWindow from './chatWindow';
 import MobileMessageApp from './mobileMessageApp';

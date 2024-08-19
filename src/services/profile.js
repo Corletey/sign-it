@@ -1,7 +1,7 @@
-// src/services/profile.js
+//src/services/profile.js
 import { apiClient } from "./config";
 
-export const apiGetUserProfile = async () => {34583769
+export const apiGetUserProfile = async () => {
     return apiClient.get("/users/userProfile");
 };
 

@@ -2,25 +2,38 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, LogOut, ChevronRight } from 'lucide-react';
 import K from '../constants';
+import { apiLogout } from '../services/auth';
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const handleLogout = () => {
-    // Clear user session data from local storage
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('userName');
+  const handleLogout = async () => {
+    if (window.confirm('Are you sure you want to log out?')) {
+      setIsLoggingOut(true);
+      try {
+        // Call the logout API
+        await apiLogout();
 
-    // Optionally, you might want to clear other session data or make an API call to logout
+        // Clear user session data from local storage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('firstName');
+        localStorage.removeItem('lastName');
+        localStorage.removeItem('userName');
 
-    // Redirect to the login page
-    navigate('/login');
+        // Redirect to the login page
+        navigate('/login');
+      } catch (error) {
+        console.error('Logout failed:', error);
+        // Handle logout error (e.g., show an error message to the user)
+      } finally {
+        setIsLoggingOut(false);
+      }
+    }
   };
 
   return (
@@ -62,10 +75,11 @@ const Sidebar = () => {
           ))}
           <button
             onClick={handleLogout}
-            className="flex items-center w-full mt-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200"
+            disabled={isLoggingOut}
+            className={`flex items-center w-full mt-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <LogOut className="w-5 h-5 mr-3" />
-            Logout
+            {isLoggingOut ? 'Logging out...' : 'Logout'}
           </button>
         </div>
       </div>

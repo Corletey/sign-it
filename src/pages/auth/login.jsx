@@ -1,4 +1,4 @@
-// src/pages/auth/login.jsx
+//src/pages/auth/login.jsx
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,7 +19,12 @@ const Login = () => {
     try {
       setIsSubmitting(true);
       const res = await apiLogin(data);
-      toast.success(res.data.message);
+      localStorage.setItem('Token', res.data.Token);
+      // localStorage.setItem('firstName', res.data.firstName);
+      localStorage.setItem('email', res.data.email);
+      // localStorage.setItem('userName', res.data.userName);
+      // toast.success(res.data.message);
+      console.log(res.data.message);
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
@@ -28,7 +33,6 @@ const Login = () => {
       setIsSubmitting(false);
     }
   };
-
   return (
     <div className="flex h-screen bg-gradient-to-br from-[#065535] to-[#0c7a4d]">
       <div className="hidden lg:flex lg:w-1/2 relative">
@@ -48,7 +52,7 @@ const Login = () => {
           <h2 className="text-4xl font-bold text-white mb-2">Welcome Back</h2>
           <p className="text-lg text-white/80 mb-8">Log in to your account</p>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-            <div className="relative">
+            {/* <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
               <input
                 type="text"
@@ -58,14 +62,14 @@ const Login = () => {
                 className="w-full px-4 py-2 pl-10 bg-white/10 border border-red-400 border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50"
               />
               {errors.firstname && <span className="text-red-400 text-sm mt-1">{errors.firstname.message}</span>}
-            </div>
+            </div> */}
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
               <input
                 type="email"
                 placeholder="Email"
                 {...register("email", { required: "Required" })}
-                autoComplete="email" // Added autocomplete attribute
+                autoComplete="email" 
                 className="w-full px-4 py-2 pl-10 bg-white/10 border ${errors.email border-red-400 border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50"
               />
               {errors.email && <span className="text-red-400 text-sm mt-1">{errors.email.message}</span>}
@@ -76,7 +80,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 {...register("password", { required: "Required" })}
-                autoComplete="current-password" // Added autocomplete attribute
+                autoComplete="current-password"
                 className="w-full px-4 py-2 pl-10 bg-white/10 border ${errors.password  border-red-400 border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50"
               />
               <div

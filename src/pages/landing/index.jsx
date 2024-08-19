@@ -14,7 +14,7 @@ const Landing = () => {
       />
       <div className="relative z-10 flex flex-col items-center space-y-8 p-10 bg-black bg-opacity-60 rounded-lg shadow-2xl backdrop-filter backdrop-blur-sm max-w-2xl w-full mx-4">
         <h1 className="text-5xl md:text-6xl font-bold text-[#ffffff] text-center leading-tight">
-          Welcome to <span className="text-[#4CAF50]">Sign It</span>
+          Welcome to <span className="text-[#4CAF50]">Visual Voices</span>
         </h1>
         <p className="text-xl text-center text-[#ffffff] font-light">
           Learn Ghanaian Sign Language with ease and connect with a vibrant community

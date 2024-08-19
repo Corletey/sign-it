@@ -1,4 +1,4 @@
-// src/services/beginner.js
+//src/services/beginner.js
 import { apiClient } from "./config";
 
 export const apiGetAllBeginnerTutorials = async () => {

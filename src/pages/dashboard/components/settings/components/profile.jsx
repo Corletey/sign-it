@@ -1,11 +1,11 @@
+//src/pages/dashboard/components/settings/components/Profile
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Circles } from 'react-loader-spinner';
 import { apiUpdateUserProfile, apiCreateUserProfile, apiGetUserProfile } from '../../../../../services/profile';
 import { toast } from "react-toastify";
 
-
-const Profile = ({ Profile }) => {
+const Profile = () => {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [profileData, setProfileData] = useState({});
@@ -15,6 +15,18 @@ const Profile = ({ Profile }) => {
     try {
       const res = await apiGetUserProfile();
       setProfileData(res.data?.profile);
+      // Populate form fields with fetched data
+      setValue('user', res.data?.profile?.user || '');
+      setValue('profilePicture', res.data?.profile?.profilePicture || '');
+      setValue('age', res.data?.profile?.age || '');
+      setValue('sex', res.data?.profile?.sex || '');
+      setValue('dateOfBirth', res.data?.profile?.dateOfBirth || '');
+      setValue('contact', res.data?.profile?.contact || '');
+      setValue('address', res.data?.profile?.address || '');
+      setValue('about', res.data?.profile?.about || '');
+      setValue('skillLevel', res.data?.profile?.skillLevel || '');
+      setValue('learningGoals', res.data?.profile?.learningGoals || '');
+      setValue('interests', res.data?.profile?.interests || '');
     } catch (error) {
       console.error("Error fetching profile data: ", error.response || error);
       toast.error("An error occurred while fetching profile data");
@@ -24,13 +36,8 @@ const Profile = ({ Profile }) => {
   };
 
   useEffect(() => {
-    if (Profile) {
-      setValue('userName', res.data?.profile?.username);
-      setValue('firstName', res.data?.profile?.firstName);
-      setValue('lastName', res.data?.profile?.lastName); ;
-      setValue('email', res.data?.profile?.email);
-    }
-  }, [Profile, setValue, profileData]);
+    fetchProfileData();
+  }, []);
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -54,38 +61,18 @@ const Profile = ({ Profile }) => {
           <input
             type="text"
             readOnly
-            {...register('userName')}
+            {...register('user')}
             className="w-full p-2 border rounded-md"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">First Name</label>
+          <label className="block text-sm font-medium text-gray-700">Profile Picture URL</label>
           <input
             type="text"
-            {...register('firstName', { required: 'Required' })}
+            {...register('profilePicture')}
             className="w-full p-2 border rounded-md"
           />
-          {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Last Name</label>
-          <input
-            type="text"
-            {...register('lastName', { required: 'Required' })}
-            className="w-full p-2 border rounded-md"
-          />
-          {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            {...register('email', { required: 'Required' })}
-            className="w-full p-2 border rounded-md"
-          />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-
-          </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Age</label>
           <input
@@ -153,11 +140,14 @@ const Profile = ({ Profile }) => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Learning Goals</label>
-          <input
-            type="text"
+          <select
             {...register('learningGoals', { required: 'Required' })}
             className="w-full p-2 border rounded-md"
-          />
+          >
+            <option value="">Select Learning Goal</option>
+            <option value="short-term">Short-term</option>
+            <option value="long-term">Long-term</option>
+          </select>
           {errors.learningGoals && <p className="text-red-500 text-sm mt-1">{errors.learningGoals.message}</p>}
         </div>
         <div>
@@ -184,4 +174,3 @@ const Profile = ({ Profile }) => {
 };
 
 export default Profile;
-
