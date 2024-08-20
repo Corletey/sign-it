@@ -14,25 +14,53 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+ 
+  const addToLocalStorage = (accessToken, user) => {
+    localStorage.setItem("accessToken", accessToken);
+    console.log("Access accessToken stored:", accessToken); // This logs the access accessToken
+    localStorage.setItem("firstName", user.firstName);
+    localStorage.setItem("lastName", user.lastName);
+    localStorage.setItem("userName", user.userName);
+  };
   const onSubmit = async (data) => {
+    console.log(data);
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
-      const res = await apiLogin(data);
-      localStorage.setItem('Token', res.data.Token);
-      // localStorage.setItem('firstName', res.data.firstName);
-      localStorage.setItem('email', res.data.email);
-      // localStorage.setItem('userName', res.data.userName);
-      // toast.success(res.data.message);
-      console.log(res.data.message);
+      const res = await apiLogin({
+        email: data.email,
+        password: data.password,
+      });
+      // console.log("login",res.data);
+      addToLocalStorage(res.data.accessToken, res.data.user);
+
+      toast.success(res.data.message);
       navigate("/dashboard");
     } catch (error) {
-      console.error(error);
-      toast.error("An error occurred");
+      console.log(error);
+      toast.error("An error occured");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     setIsSubmitting(true);
+  //     const res = await apiLogin(data);
+  //     localStorage.setItem('token', res.data.token);
+  //     // localStorage.setItem('firstName', res.data.firstName);
+  //     localStorage.setItem('email', res.data.email);
+  //     localStorage.setItem('userName', res.data.userName);
+  //     // toast.success(res.data.message);
+  //     console.log(res.data.message);
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("An error occurred");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
   return (
     <div className="flex h-screen bg-gradient-to-br from-[#065535] to-[#0c7a4d]">
       <div className="hidden lg:flex lg:w-1/2 relative">
@@ -69,7 +97,7 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 {...register("email", { required: "Required" })}
-                autoComplete="email" 
+                autoComplete="email"
                 className="w-full px-4 py-2 pl-10 bg-white/10 border ${errors.email border-red-400 border-white/20'} rounded-lg focus:ring-2 focus:ring-white/50 focus:border-transparent text-white placeholder-white/50"
               />
               {errors.email && <span className="text-red-400 text-sm mt-1">{errors.email.message}</span>}

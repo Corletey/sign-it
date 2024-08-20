@@ -32,7 +32,7 @@ const Navigation = () => {
               </button>
               <div className="flex-shrink-0 flex items-center ml-2 lg:ml-0">
                 <img className="h-8 w-auto" src="/path-to-your-logo.png" alt="Sign It Logo" />
-                <span className="ml-2 text-xl font-bold text-[#065535]">Visual Voices</span>
+                <span className="ml-2 text-xl font-bold text-[#065535]">VisualVoices</span>
               </div>
             </div>
             <div className="hidden lg:flex lg:items-center lg:space-x-4">
@@ -64,7 +64,7 @@ const Navigation = () => {
         } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
       >
         <div className="h-16 flex items-center justify-center lg:hidden">
-          <h2 className="text-2xl font-bold">Sign It</h2>
+          <h2 className="text-2xl font-bold">VisualVoices</h2>
         </div>
         <nav className="mt-5">
           {K.DASHBOARD_LINKS.map((item) => (

@@ -14,21 +14,21 @@ export const apiClient = axios.create({
 // Function to get user details from localStorage
 export const getDetails = () => {
     const user = {};
-    user.Token = localStorage.getItem('Token');
-    // user.firstName = localStorage.getItem('firstName');
-    // user.lastName = localStorage.getItem('lastName');
+    user.token = localStorage.getItem('token');
+    user.firstName = localStorage.getItem('firstName');
+    user.lastName = localStorage.getItem('lastName');
     user.email = localStorage.getItem('email');
-    // user.userName = localStorage.getItem('userName');
+    user.userName = localStorage.getItem('userName');
     return user;
 };
 
 // Request interceptor to add Authorization header with the access token
 apiClient.interceptors.request.use(
     (config) => {
-        const { Token } = getDetails();
-        if (Token) {
-            config.headers.Authorization = `Bearer ${Token}`;
-            console.log('Token being sent:', Token);
+        const { token } = getDetails();
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+            console.log('Token being sent:', token);
         } else {
             console.log('No token available');
         }
@@ -49,7 +49,7 @@ apiClient.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     toast.error('Unauthorized: Please log in again.');
-                    localStorage.removeItem('Token');
+                    localStorage.removeItem('token');
                     // localStorage.removeItem('firstName');
                     localStorage.removeItem('email');
                     // localStorage.removeItem('userName');

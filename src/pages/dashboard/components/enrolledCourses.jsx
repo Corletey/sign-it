@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Hand, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import CourseSidebar from '../../../components/sidebar2';
 
 const EnrolledCourses = () => {
   const [activeTab, setActiveTab] = useState('Active Courses');

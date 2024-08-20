@@ -1,23 +1,47 @@
-// src/pages/courses/beginner/index.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import BegLesson1 from './BegLesson1';
+import BegLesson2 from './BegLesson2'; // Import other lessons as needed
 
 const BeginnerIndex = () => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-center mb-8">Beginner Sign Language Course</h1>
-      <div className="space-y-6">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold">Module 1: Introduction to Sign Language</h2>
-          <Link to="/dashboard/enrolled-courses/beginner/module1" className="text-blue-500 hover:underline mt-4 inline-block">Start Module 1</Link>
+    const [selectedLesson, setSelectedLesson] = useState(null);
+
+    const lessons = [
+        { id: 1, title: 'Lesson 1: Introduction to Ghanaian Sign Language', component: <BegLesson1 /> },
+        { id: 2, title: 'Lesson 2: GSL Alphabet', component: <BegLesson2 /> },
+        // Will add more lessons here
+    ];
+
+    const handleLessonClick = (lesson) => {
+        setSelectedLesson(lesson.component);
+    };
+
+    return (
+        <div className="flex">
+            {/* Sidebar with Lessons */}
+            <div className="w-1/4 p-4 bg-gray-100">
+                <ul>
+                    {lessons.map((lesson) => (
+                        <li 
+                            key={lesson.id} 
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleLessonClick(lesson)}
+                        >
+                            {lesson.title}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* Main Content Area */}
+            <div className="w-3/4 p-4 bg-white">
+                {selectedLesson ? (
+                    selectedLesson
+                ) : (
+                    <p>Please select a lesson to view its content.</p>
+                )}
+            </div>
         </div>
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold">Module 2: Basic Communication</h2>
-          <Link to="/dashboard/enrolled-courses/beginner/module2" className="text-blue-500 hover:underline mt-4 inline-block">Start Module 2</Link>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BeginnerIndex;

@@ -29,7 +29,6 @@ const Sidebar = () => {
         navigate('/login');
       } catch (error) {
         console.error('Logout failed:', error);
-        // Handle logout error (e.g., show an error message to the user)
       } finally {
         setIsLoggingOut(false);
       }
@@ -40,7 +39,7 @@ const Sidebar = () => {
     <>
       <div className={`fixed inset-y-0 left-0 z-20 w-64 bg-gradient-to-b from-green-700 to-green-900 text-white transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 shadow-lg`}>
         <div className="h-16 flex items-center justify-center lg:hidden">
-          <h2 className="text-2xl font-bold">Sign It</h2>
+          <h2 className="text-2xl font-bold">VisualVoices</h2>
         </div>
         <nav className="mt-5 space-y-2">
           {K.DASHBOARD_LINKS.map((item) => (

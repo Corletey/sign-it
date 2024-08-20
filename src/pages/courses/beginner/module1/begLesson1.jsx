@@ -1,10 +1,9 @@
-// src/pages/courses/beginner/module1.jsx
 import React from 'react';
 
-const Module1 = () => {
+const BegLesson1 = () => {
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Module 1: Introduction to Sign Language</h1>
+      <h1 className="text-3xl font-bold text-center mb-8"> Introduction to Ghanaian Sign Language</h1>
       <div className="flex justify-center">
         <div className="w-full max-w-4xl">
           <video
@@ -20,4 +19,4 @@ const Module1 = () => {
   );
 };
 
-export default Module1;
+export default BegLesson1;

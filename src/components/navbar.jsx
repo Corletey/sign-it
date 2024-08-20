@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            {/* <img className="h-8 w-auto" src="/path-to-your-logo.png" alt="Sign It Logo" /> */}
+            {/* <img className="h-8 w-auto" src="/path-to-your-logo.png" alt="VisualVoices Logo" /> */}
             <span className="ml-2 text-xl font-bold font-sans text-[#065535]">VisualVoices</span>
           </div>
           <div className="hidden lg:flex lg:items-center lg:space-x-4">
@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to="/dashboard/messages" className="text-gray-500 hover:text-[#065535] px-3 py-2 rounded-md text-sm font-medium">Community</Link>
             <Link to="/resources" className="text-gray-500 hover:text-[#065535] px-3 py-2 rounded-md text-sm font-medium">Resources</Link>
             <Link to="/dashboard" className="ml-3 px-3 py-2 rounded-md text-sm font-medium bg-[#065535] text-white hover:bg-[#054425]">Dashboard</Link>
-            <img className="h-8 w-8 rounded-full" src="/path-to-user-avatar.jpg" alt="" />
+            {/* <img className="h-8 w-8 rounded-full" src="/path-to-user-avatar.jpg" alt="" /> */}
           </div>
         </div>
       </div>
