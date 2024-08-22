@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BegLesson1 from './BegLesson1';
-import BegLesson2 from './BegLesson2'; // Import other lessons as needed
+import BegLesson2 from './BegLesson2';
 
 const BeginnerIndex = () => {
     const [selectedLesson, setSelectedLesson] = useState(null);

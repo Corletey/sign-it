@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AdvancedIndex = () => {
+const AdvancedOverview = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold text-center mb-8">Advanced Sign Language Course</h1>
@@ -20,4 +20,4 @@ const AdvancedIndex = () => {
   );
 };
 
-export default AdvancedIndex;
+export default AdvancedOverview;

@@ -16,16 +16,11 @@ const Sidebar = () => {
     if (window.confirm('Are you sure you want to log out?')) {
       setIsLoggingOut(true);
       try {
-        // Call the logout API
         await apiLogout();
-
-        // Clear user session data from local storage
         localStorage.removeItem('accessToken');
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
         localStorage.removeItem('userName');
-
-        // Redirect to the login page
         navigate('/login');
       } catch (error) {
         console.error('Logout failed:', error);
@@ -37,19 +32,19 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`fixed inset-y-0 left-0 z-20 w-64 bg-gradient-to-b from-green-700 to-green-900 text-white transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 shadow-lg`}>
-        <div className="h-16 flex items-center justify-center lg:hidden">
+      <div className={`fixed inset-y-0 left-0 z-20 w-72 bg-gradient-to-b from-green-700 to-green-900 text-white transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 shadow-lg`}>
+        <div className="h-20 flex items-center justify-center border-b border-green-600">
           <h2 className="text-2xl font-bold">VisualVoices</h2>
         </div>
-        <nav className="mt-5 space-y-2">
+        <nav className="mt-6 space-y-1 px-3">
           {K.DASHBOARD_LINKS.map((item) => (
             <Link
               key={item.name}
               to={item.path}
-              className={`flex items-center px-6 py-3 text-white rounded-md hover:bg-green-600 transition-colors duration-200 ${location.pathname === item.path ? 'bg-green-600' : ''}`}
+              className={`flex items-center px-4 py-3 text-base font-medium rounded-lg hover:bg-green-600 transition-colors duration-200 ${location.pathname === item.path ? 'bg-green-600' : ''}`}
               onClick={() => setIsSidebarOpen(false)}
             >
-              <item.icon className="w-5 h-5 mr-3" />
+              <item.icon className="w-6 h-6 mr-4" />
               <span>{item.name}</span>
               {location.pathname === item.path && (
                 <ChevronRight className="w-5 h-5 ml-auto" />
@@ -57,7 +52,7 @@ const Sidebar = () => {
             </Link>
           ))}
         </nav>
-        <div className="p-6 mt-auto">
+        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-green-600">
           <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
             Account Settings
           </h3>
@@ -65,20 +60,22 @@ const Sidebar = () => {
             <Link
               key={item.name}
               to={item.path}
-              className="flex items-center mb-3 text-white hover:text-green-300 transition-colors duration-200"
+              className="flex items-center mb-3 py-2 text-base font-medium hover:text-green-300 transition-colors duration-200"
               onClick={() => setIsSidebarOpen(false)}
             >
-              <item.icon className="w-5 h-5 mr-3" />
+              <item.icon className="w-6 h-6 mr-4" />
               <span>{item.name}</span>
             </Link>
           ))}
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className={`flex items-center w-full mt-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`flex items-center justify-center w-full mt-6 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            <LogOut className="w-5 h-5 mr-3" />
-            {isLoggingOut ? 'Logging out...' : 'Logout'}
+            <LogOut className="w-6 h-6 mr-3" />
+            <span className="text-base font-medium">
+              {isLoggingOut ? 'Logging out...' : 'Logout'}
+            </span>
           </button>
         </div>
       </div>

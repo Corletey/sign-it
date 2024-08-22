@@ -1,15 +1,18 @@
+//src/pages/courses/beginner/module1/begLesson1.jsx
 import React from 'react';
+import videoSrc from '../../../../assets/videos/beglesson1.mp4';
 
 const BegLesson1 = () => {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-center mb-8"> Introduction to Ghanaian Sign Language</h1>
+    <div className="p-4 sm:p-8">
+      <h1 className="text-xl sm:text-3xl font-bold text-center mb-4 sm:mb-8">Introduction to Sign Language Alphabets</h1>
       <div className="flex justify-center">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-lg sm:max-w-4xl">
           <video
             controls
             className="w-full h-auto bg-black rounded-lg shadow-lg"
-            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            src={videoSrc}
+            autoPlay
           >
             Your browser does not support the video tag.
           </video>

@@ -26,7 +26,7 @@ const HeroSection = ({ userName }) => {
             </p>
           </div>
           <div className="flex space-x-6">
-            <QuickStatCard icon={<FiBook />} value="5" label="Active Courses" />
+            <QuickStatCard icon={<FiBook />} value="3" label="Active Courses" />
             <QuickStatCard icon={<FiClock />} value="2h 30m" label="Study Time" />
           </div>
         </div>
